@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline Building Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+            background: linear-gradient(to bottom, #aaeecc, #66cccc);
+            background-attachment: fixed;
+        }
+        h1, h2 {
+            color: #007BFF;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        .considerations {
+            background-color: #f9f9f9;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        img {
+            max-width: 90%;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pipeline Building Report</h1>
+
+    <section>
+        <h2>Objective</h2>
+        <p>
+            The objective of this pipeline is to process and prepare a dataset for training a LightGBM classification model to predict whether a loan is flagged based on the 'hasCF' label.
+        </p>
+    </section>
+
+    <section>
+        <h2>Pipeline Steps</h2>
+        <img src="pipeline_diagram.png" title="Piepline Diagram">
+        <ol>
+            <li><strong>Data Loading:</strong> Load loan and payment data from CSV files and merge them into a combined dataset based on a common key (<code>loanId</code>).</li>
+            <li><strong>Data Cleaning:</strong> Remove unnecessary columns, handle missing values, and drop duplicates.</li>
+            <li><strong>Feature Engineering:</strong> Calculate new features (e.g., <code>paymentDuration</code>) and convert dates into numerical or time-based representations.</li>
+            <li><strong>Outlier Handling:</strong> Apply the interquartile range (IQR) method to cap extreme values.</li>
+            <li><strong>Encoding Categorical Variables:</strong> Use Label Encoding to convert categorical features into numerical formats for model compatibility.</li>
+            <li><strong>Balancing the Dataset:</strong> Perform under-sampling to handle class imbalance and ensure equal representation of classes.</li>
+            <li><strong>Hyperparameter Optimization:</strong> Use Particle Swarm Optimization (PSO) to fine-tune LightGBM hyperparameters.</li>
+            <li><strong>Model Training:</strong> Train the final LightGBM model using the optimized hyperparameters.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>Key Considerations</h2>
+        <div class="considerations">
+            <ul>
+                <li><strong>Data Quality:</strong> Ensure no critical information is lost during data cleaning and handling missing values.</li>
+                <li><strong>Handling Class Imbalance:</strong> Avoid overfitting by balancing classes through sampling or weighting techniques.</li>
+                <li><strong>Feature Engineering:</strong> Derived features like <code>paymentDuration</code> can significantly improve model performance.</li>
+                <li><strong>Categorical Encoding:</strong> Evaluate whether label encoding or one-hot encoding is more suitable, especially for non-ordinal categories.</li>
+                <li><strong>Hyperparameter Optimization:</strong> Carefully set bounds and parameters for optimization algorithms to avoid inefficient exploration.</li>
+                <li><strong>Scalability:</strong> Structure the pipeline to handle large datasets efficiently using optimized libraries like Pandas and LightGBM.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p><em>Prepared by:</em> Yusof Sharif</p>
+    </footer>
+</body>
+</html>
